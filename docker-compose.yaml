@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  bot:
+    container_name: bot
+    environment:
+      PYTHONUNBUFFERED: 1
+    build:
+      context: ./bot
+    environment:
+      - TMI_TOKEN=${TMI_TOKEN}
+      - BOT_PREFIX=${BOT_PREFIX}
+      - CHANNEL=${CHANNEL}
+    volumes:
+      - ./bot/bot.py:/app/bot.py
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: on-failure
+
+    
+volumes:
+  redis-data:
+
