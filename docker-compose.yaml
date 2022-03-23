@@ -33,9 +33,39 @@ services:
       - ./quasar:/app/:rw
     restart: on-failure
 
+  flask:
+    container_name: flask
+    working_dir: /code
+    build: "./flask"
+    volumes:
+      - ./flask:/code
+    environment:
+      - REDIS_HOST=redis
+    expose:
+      - "5000"
+    depends_on:
+      - redis
+    restart: on-failure
+
+  icecast:
+    container_name: icecast
+    image: cakebread/gigcaster-icecast
+    working_dir: /home/icecast
+    volumes:
+      - ./config:/home/icecast/config
+      - ./certs:/home/icecast/certs
+      - ./log:/home/icecast/log
+    ports:
+      - "9595:8000"
+      - "9001:9001"
+    restart: on-failure
 
     
 volumes:
   redis-data:
   quasar:
+  flask:
+  config:
+  certs:
+  log:
 
