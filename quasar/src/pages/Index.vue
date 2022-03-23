@@ -1,8 +1,22 @@
 <template>
  <div class="q-pa-md q-gutter-sm">
-<q-btn label="Chat Log" color="primary" @click="basic = true" />
-    <q-btn label="Playlist" color="primary" @click="fixed = true" />
+     <div class="row">
+     <q-btn label="Chat Log" color="primary" @click="basic = true" />
+     <q-btn label="Playlist" color="primary" @click="fixed = true" />
+     </div>
 
+    <div class="column col desktop-only">
+        <iframe src="https://www.twitch.tv/embed/reverenddankxlu/chat?parent=trash.rocklosangeles.com&parent=localhost"
+            height="750"
+            width="100%">
+        </iframe>
+    </div>
+    <div class="column col absolute-full  mobile-only">
+        <iframe src="https://www.twitch.tv/embed/reverenddankxlu/chat?parent=trash.rocklosangeles.com?parent=192.168.0.139"
+            height="90%"
+            width="100%">
+        </iframe>
+    </div>
     <q-dialog v-model="basic" transition-show="rotate" transition-hide="rotate">
       <q-card>
         <q-card-section>
@@ -19,7 +33,7 @@
     <q-dialog v-model="fixed">
       <q-card>
         <q-card-section>
-          <div class="text-h6">Today's Playlist</div>
+          <div class="text-h6">Playlist</div>
         </q-card-section>
 
         <q-separator />
@@ -81,7 +95,7 @@ export default {
   methods: {
       play(audio) {
        audio.isPlaying = true;
-       audio.file.src = "http://kxlu.streamguys1.com/kxlu-hi";
+       audio.file.src = "https://trash.rocklosangeles.com:9595/live.mp3";
        audio.file.play();
      },
 
