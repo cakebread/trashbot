@@ -13,6 +13,7 @@ services:
       - CHANNEL=${CHANNEL}
     volumes:
       - ./bot/bot.py:/app/bot.py
+      - ./bot/log.txt:/app/log.txt
 
   redis:
     image: redis:alpine
