@@ -32,11 +32,9 @@
 
       </q-card>
     </q-dialog>
-<q-btn label="Listen" color="primary" @click="seamless = true" />
 
     <q-dialog v-model="seamless" seamless position="bottom">
       <q-card style="width: 350px">
-        <q-linear-progress :value="0.6" color="pink" />
 
         <q-card-section class="row items-center no-wrap">
           <div>
@@ -46,9 +44,16 @@
 
           <q-space />
 
-          <q-btn flat round icon="play_arrow" />
-          <q-btn flat round icon="pause" />
-          <q-btn flat round icon="close" v-close-popup />
+         <q-btn
+         class="q-mr-sm"
+         color="red"
+         @click.prevent="audio.isPlaying ? pause(audio) : play(audio)"
+         v-for="audio in audios"
+         :key="audio.id"
+       >
+         {{ audio.isPlaying ? "Stop" : "Play" }}
+       </q-btn>
+
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -60,10 +65,32 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      seamless: false,
+      seamless: true,
       basic: false,
-      fixed: false
+      fixed: false,
+      audios: [
+         {
+           id: "mp3",
+           file: new Audio(),
+           isPlaying: false,
+         },
+       ],
+
     }
+  },
+  methods: {
+      play(audio) {
+       audio.isPlaying = true;
+       audio.file.src = "http://kxlu.streamguys1.com/kxlu-hi";
+       audio.file.play();
+     },
+
+     pause(audio) {
+       audio.isPlaying = false;
+       audio.file.pause();
+       audio.file.src =
+         "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=";
+     },
   }
 }
 </script>
