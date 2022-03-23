@@ -23,7 +23,19 @@ services:
       - "6379:6379"
     restart: on-failure
 
+  quasar:
+    container_name: quasar
+    build:
+      context: ./quasar
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./quasar:/app/:rw
+    restart: on-failure
+
+
     
 volumes:
   redis-data:
+  quasar:
 
